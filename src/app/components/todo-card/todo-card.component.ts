@@ -47,6 +47,17 @@ export class TodoCardComponent implements OnInit {
       this.todosSignal.mutate((todos) => {
         const todoSelected = todos.find((todo) => todo?.id === todoId) as Todo;
         todoSelected && (todoSelected.done = true);
+        this.saveTodosInLocalStorage();
+      });
+    }
+  }
+
+  public handleUndoTodo(todoId: number): void {
+    if (todoId) {
+      this.todosSignal.mutate((todos) => {
+        const todoSelected = todos.find((todo) => todo?.id === todoId) as Todo;
+        todoSelected && (todoSelected.done = false);
+        this.saveTodosInLocalStorage();
       });
     }
   }
